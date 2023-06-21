@@ -15,7 +15,8 @@ def home(r):
 def viewNews(r,slug):
     data = {
         "category":Category.objects.all(),
-        "post" : Post.objects.get(slug=slug)
+        "post" : Post.objects.get(slug=slug),
+        "related_posts" :Post.objects.exclude(slug=slug)
     }
     return render(r,"view.html",data)
 
@@ -61,6 +62,10 @@ def signUp(r):
     data = {
         "form":form
     }
+    if r.method == "POST":
+        if form.is_valid():
+            form.save()
+            return redirect(signIn)
     return render(r,"accounts/register.html",data) 
 
 def signIn(r):
