@@ -1,9 +1,10 @@
 
 from django.contrib import admin
-from django.urls import path
+from django.urls import path,re_path,include
 from cms.views import *
 from django.conf.urls.static import static
 from django.conf import settings
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -17,6 +18,8 @@ urlpatterns = [
     path("register/",signUp, name="signUp"),
     path("edit/<slug>/",editNews, name="editNews"),
     path("search/",searchNews, name="search"),
+    re_path('^', include('django.contrib.auth.urls')),
+
  
 ] 
 
